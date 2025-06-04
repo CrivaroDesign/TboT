@@ -11,6 +11,21 @@
 # production
 /build
 
+# Python virtual environment
+venv/
+.env
+*.env
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+
+# VS Code settings
+.vscode/
+
+# Log files
+*.log
+
 # misc
 .DS_Store
 .env
