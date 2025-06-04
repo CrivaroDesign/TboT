@@ -1,0 +1,2 @@
+# TboT
+A Trading Bot
