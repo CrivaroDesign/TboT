@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+requests
+websocket-client
+numpy
+pandas
+matplotlib
+plotly
+scikit-learn
+backtrader
