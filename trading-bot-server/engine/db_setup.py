@@ -25,6 +25,7 @@ def get_engine():
 def init_db():
     engine = get_engine()
     Base.metadata.create_all(engine)
+    print("Database initialized.")
 
 if __name__ == "__main__":
     init_db()

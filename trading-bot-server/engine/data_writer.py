@@ -1,7 +1,6 @@
-# engine/data_writer.py
-
+import pandas as pd
 from sqlalchemy.orm import sessionmaker
-from db_setup import get_engine, OHLCV
+from db_setup import Base, get_engine, OHLCV
 from datetime import datetime
 
 engine = get_engine()
