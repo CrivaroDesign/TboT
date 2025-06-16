@@ -42,8 +42,8 @@ def save_to_db(symbol, df):
 
 if __name__ == "__main__":
     symbol = "BTC-USD"
-    start = "2023-01-01"
-    end = "2023-03-01"
+    start = "2020-01-01"
+    end = "2025-03-01"
     df = fetch_historical(symbol, start, end)
     if not df.empty:
         save_to_db(symbol, df)
