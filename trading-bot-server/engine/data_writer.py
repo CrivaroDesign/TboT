@@ -1,26 +1,23 @@
-import pandas as pd
+# engine/data_writer.py
+
 from sqlalchemy.orm import sessionmaker
-from db_setup import Base, get_engine, OHLCV
-from datetime import datetime
+from engine.db_setup import OHLCV
 
-engine = get_engine()
-Session = sessionmaker(bind=engine)
-session = Session()
+def save_ohlcv(engine, symbol, df):
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
-def save_ohlcv(symbol, price_list: list[dict]):
-    for p in price_list:
+    for _, row in df.iterrows():
         record = OHLCV(
             symbol=symbol,
-            timestamp=datetime.fromisoformat(p['timestamp']),
-            open=p['open'],
-            high=p['high'],
-            low=p['low'],
-            close=p['close'],
-            volume=p['volume']
+            timestamp=row['timestamp'],
+            open=row['open'],
+            high=row['high'],
+            low=row['low'],
+            close=row['close'],
+            volume=row['volume']
         )
-        session.merge(record)  # merge to avoid duplicates
+        session.merge(record)   # merge to avoid duplicates
     session.commit()
-    print(f"Saved {len(price_list)} records for {symbol} to DB.")
-def close_session():
     session.close()
     print("Session closed.")

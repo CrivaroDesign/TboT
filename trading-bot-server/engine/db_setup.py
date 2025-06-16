@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 Base = declarative_base()
 
 class OHLCV(Base):
-    __tablename__ = 'ohlcv_data'
+    __tablename__ = 'ohlcv'
     id = Column(Integer, primary_key=True)
     symbol = Column(String)              # e.g., BTC-USD
     timestamp = Column(DateTime)         # Time of the OHLCV bar
@@ -16,16 +16,12 @@ class OHLCV(Base):
     close = Column(Float)
     volume = Column(Float)
 
-# DB Setup
-def get_engine():
+# DB Setup - Function to get a specific DBs paired with symbols
+def get_engine_for_symbol(symbol):
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(base_dir, '../storage/historical_data.db')
-    return create_engine(f'sqlite:///{os.path.abspath(db_path)}')
-
-def init_db():
-    engine = get_engine()
+    db_name = symbol.lower().replace("-", "_") + ".db"
+    db_path = os.path.join(base_dir, '../storage/{db_name}')
+    engine = create_engine(f"sqlite:///{os.path.abspath(db_path)}")
     Base.metadata.create_all(engine)
-    print("Database initialized.")
-
-if __name__ == "__main__":
-    init_db()
+    print("Database initialized. Pair:{symbol}")
+    return engine
